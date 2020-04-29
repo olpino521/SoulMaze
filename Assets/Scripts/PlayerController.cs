@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 	[SerializeField] float speed = 4f;
-    Vector3 forward, right, move, horizontalMovement, verticalMovement, direction;
+    Vector3 forward, right, horizontalMovement, verticalMovement, direction;
 	
 	private void Start()
 	{
@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviour {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-		move = new Vector3(x, 0, z);
 		horizontalMovement = right * speed * Time.deltaTime * x;
 		verticalMovement = forward * speed * Time.deltaTime * z;
 		
