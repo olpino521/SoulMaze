@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class DebugStats : MonoBehaviour
 {
-    public FloatReference playerHp;
-    public FloatReference playerSoulShards;
+    public PlayerStats playerStats;
     public TextMeshProUGUI playerHPText;
     public TextMeshProUGUI playerSoulShardsText;
     public TextMeshProUGUI fpsText;
@@ -28,8 +27,8 @@ public class DebugStats : MonoBehaviour
         }
         if (showPlayerStats)
         {
-            playerHPText.text = "Player HP: " + playerHp.Value + "/" + playerHp.initialValue;
-            playerSoulShardsText.text = "# Soul Shards: " + playerSoulShards.Value;
+            playerHPText.text = "Player HP: " + playerStats.CurrentHealth + "/" + playerStats.maxHealth;
+            playerSoulShardsText.text = "# Soul Shards: " + playerStats.soulShards;
         }
         
     }
