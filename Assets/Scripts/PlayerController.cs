@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour 
 {
 	public PlayerStats playerStats;
-    Vector3 forward, right, horizontalMovement, verticalMovement;
+    Vector3 forward, right, horizontalMovement, verticalMovement, direction;
 	Plane plane;
 	Vector3 mouseWorldPosition;
 	int currentWeapon = 0;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         //90 rotation
 		right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 		//Plane for rotation 
-		plane = new Plane(Vector3.up, 0);
+		plane = new Plane(Vector3.up, Vector3.up);
 
 		GameObject tempGun = Instantiate(playerStats.weapons[0], transform.forward + Vector3.up, transform.rotation,transform);
 		loadedWeapons[0] = tempGun.GetComponent<Weapon>();
@@ -31,18 +31,26 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		float x = Input.GetAxis("Horizontal");
-		float z = Input.GetAxis("Vertical");
+		//Gets the overall direction of input. Used for movement and dash
+		LoadDirection();
 
-		if (x != 0 || z != 0) 
-			MoveCharacter(x,z);
-
+		MoveCharacter();
 		RotateCharacter();
 
 		if (Input.GetMouseButton(0))
-		{
 			Shoot();
-		}
+
+		if (IsDashReady() && Input.GetKeyDown(KeyCode.Space))
+			Dash();
+	}
+
+	void LoadDirection()
+	{
+		float x = Input.GetAxis("Horizontal");
+		float z = Input.GetAxis("Vertical");
+		horizontalMovement = right * x;
+		verticalMovement = forward * z;
+		direction = horizontalMovement + verticalMovement;
 	}
 
 	private void Shoot()
@@ -63,14 +71,40 @@ public class PlayerController : MonoBehaviour
 
 	}
 
-	private void MoveCharacter(float horizontal, float vertical)
-	{
-		horizontalMovement = right * playerStats.speed * Time.deltaTime * horizontal;
-		verticalMovement = forward * playerStats.speed * Time.deltaTime * vertical;
-		
-		transform.position += horizontalMovement;
-		transform.position += verticalMovement;
+	private void MoveCharacter()
+	{		
+		transform.position += direction * playerStats.speed * Time.deltaTime;
 	}
 
+	bool IsDashReady()
+	{
+		if (playerStats.DashCurrentCooldown == playerStats.dashCooldown)
+			return true;
+
+		playerStats.DashCurrentCooldown += Time.deltaTime;
+		return false;
+	}
+
+	void Dash()
+	{
+		playerStats.DashCurrentCooldown = 0;
+		StartCoroutine(DashRoutine());
+	}
+
+	IEnumerator DashRoutine()
+	{
+		//Get direction of dash
+		Vector3 dashDirectionSnapshot = new Vector3();
+		dashDirectionSnapshot = direction == Vector3.zero ? transform.forward : direction;
+		dashDirectionSnapshot.Normalize();
+		float remainingDashDistance = playerStats.dashDistance;
+		while (remainingDashDistance > 0)
+		{
+			yield return new WaitForFixedUpdate();
+			transform.position += dashDirectionSnapshot * Time.fixedDeltaTime * playerStats.dashSpeed;
+			remainingDashDistance -= Time.fixedDeltaTime * playerStats.dashSpeed;
+		}
+		
+	}
 	
 }

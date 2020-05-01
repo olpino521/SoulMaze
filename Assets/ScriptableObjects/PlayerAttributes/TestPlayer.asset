@@ -15,6 +15,9 @@ MonoBehaviour:
   maxHealth: 100
   soulShards: 0
   speed: 4
+  dashSpeed: 30
+  dashCooldown: 2
+  dashDistance: 5
   isDead: 0
   weapons:
   - {fileID: 3864696444504924218, guid: 337c35190205edf4e9e41b4404f88530, type: 3}
