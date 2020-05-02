@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Pistol
-  fireRate: 1
+  fireRate: 2
   bulletSlot: 0
   bulletExit: {fileID: 6315909924025191314}
 --- !u!1 &6311345308890149478

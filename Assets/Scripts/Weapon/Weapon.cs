@@ -11,14 +11,17 @@ public class Weapon : MonoBehaviour
 
     float lastUpdate;
     ObjectPooler pooler;
+    float bulletsPerSecond;
     private void Start()
     {
         pooler = ObjectPooler.SharedInstance;
+        
     }
 
     public void Fire()
     {
-        if (Time.time - fireRate >= lastUpdate)
+        bulletsPerSecond = 1 / fireRate;
+        if (Time.time - bulletsPerSecond >= lastUpdate)
         {
             SpawnBullet();
             lastUpdate = Time.time;

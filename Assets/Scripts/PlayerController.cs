@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 		//Plane for rotation 
 		plane = new Plane(Vector3.up, Vector3.up);
 
-		GameObject tempGun = Instantiate(playerStats.weapons[0], transform.forward + Vector3.up, transform.rotation,transform);
+		GameObject tempGun = Instantiate(playerStats.weapons[0], transform.position + transform.forward, Quaternion.identity,transform);
 		loadedWeapons[0] = tempGun.GetComponent<Weapon>();
 	}
 
