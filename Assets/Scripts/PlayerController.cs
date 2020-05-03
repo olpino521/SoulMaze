@@ -106,5 +106,13 @@ public class PlayerController : MonoBehaviour
 		}
 		
 	}
+
+	private void OnCollisionEnter(Collision other) {
+	
+
+		if(other.transform.tag == "Pickup"){
+			Destroy(other.gameObject);
+		}
+	}
 	
 }
