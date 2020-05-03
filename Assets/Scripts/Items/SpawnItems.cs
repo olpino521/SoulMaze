@@ -9,16 +9,21 @@ public class SpawnItems : MonoBehaviour
 
     List<GameObject> objectsSpawned;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    private void Awake() {
+        
         //initiliaze list
         objectsSpawned = new List<GameObject>();
         
     }
 
+    // Start is called before the first frame update
+    private void Start()
+    {
+        
+    }
+
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         spawn();
         

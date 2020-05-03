@@ -3,7 +3,6 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
   - UI
   layers:
   - Default
@@ -17,8 +16,8 @@ TagManager:
   - Player
   - Weapon
   - Bullet
-  - 
-  - 
+  - Items
+  - Enemies
   - 
   - 
   - 
