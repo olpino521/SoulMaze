@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
 	private void Start()
 	{
+
 		loadedWeapons = new Weapon[playerStats.weapons.Length];
 		//isometric view
 		forward = Camera.main.transform.forward;
@@ -31,12 +32,14 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
+		
 		//Gets the overall direction of input. Used for movement and dash
 		LoadDirection();
 
 		MoveCharacter();
 		RotateCharacter();
 
+		//inputs
 		if (Input.GetMouseButton(0))
 			Shoot();
 
@@ -72,7 +75,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	private void MoveCharacter()
-	{		
+	{	
+		// print("Move!!!");
+		// rb.MovePosition(transform.position + (direction * playerStats.speed * Time.deltaTime));
 		transform.position += direction * playerStats.speed * Time.deltaTime;
 	}
 
