@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Items : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] GameObject soul, box;
-    //TODO: if is breakable or pickup
-    //TODO: collition on trigger
-    //TODO: counter of pickups
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,4 +15,11 @@ public class Items : MonoBehaviour
     {
         
     }
+
+       private void OnCollisionEnter(Collision other) {
+        
+        if(other.transform.tag == "Bullet") {
+            Destroy(gameObject);
+        }
+    } 
 }

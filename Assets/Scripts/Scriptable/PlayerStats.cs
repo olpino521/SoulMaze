@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : ScriptableObject, ISerializationCallbackReceiver
 {
     public float maxHealth;
-    public int soulShards;
+    [NonSerialized]public int soulShards;
     public float speed;
     //dash speed
     public float dashSpeed;

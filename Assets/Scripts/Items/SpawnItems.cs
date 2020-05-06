@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class SpawnItems : MonoBehaviour
 {
-    [SerializeField] private GameObject souls, box;
+    [SerializeField] private GameObject souls, box, enemy;
     Vector3 location;
 
-    List<GameObject> objectsSpawned;
+    // List<GameObject> objectsSpawned;
 
     private void Awake() {
         
-        //initiliaze list
-        objectsSpawned = new List<GameObject>();
-        
+        //initiliaze items list
+        // objectsSpawned = new List<GameObject>();
+
     }
 
     // Start is called before the first frame update
