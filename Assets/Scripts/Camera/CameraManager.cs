@@ -14,11 +14,15 @@ public class CameraManager : MonoBehaviour
 
     Camera mainReference;
 
+    private void Awake()
+    {
+        FollowTarget();
+    }
     private void Start()
     {
         mainReference = GetComponent<Camera>();
         mainReference.orthographic = true;
-        referenceDistance = target.position - transform.position;  
+        
     }
 
     // Update is called once per frame
@@ -32,9 +36,11 @@ public class CameraManager : MonoBehaviour
 
     void FollowTarget()
     {
-        Vector3 followPosition = target.position - referenceDistance.normalized * distance;
-        Vector3 followPositionFixed = new Vector3(followPosition.x, distanceFromPlayer, followPosition.z);
-        transform.localPosition = followPositionFixed;
+        float cameraHeight = target.position.y + Mathf.Sqrt(2 * distance * distance);
+        float referenceZ = target.position.z - distance;
+        float referenceX = target.position.x - distance;
+        referenceDistance = new Vector3(referenceX, cameraHeight + viewYOffset, referenceZ);
+        transform.position = referenceDistance;
     }
 
     void KeepRotation()
